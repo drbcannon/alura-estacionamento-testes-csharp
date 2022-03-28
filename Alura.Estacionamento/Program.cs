@@ -7,6 +7,7 @@ namespace Alura.Estacionamento
 {
     class Program
     {
+
         // Cria uma lista de objetos do tipo veículos, para armazenar
         // os veículos (automovéis e motos) que estão no estacionamento;
         static Patio estacionamento = new Patio();         
@@ -24,7 +25,8 @@ namespace Alura.Estacionamento
                 Console.Clear();// limpa a tela;
             } while (opcao != "5");
         }
-                
+
+        
         // Métodos de negócios.
         static void MostrarVeiculosEstacionados()
         {
@@ -32,17 +34,18 @@ namespace Alura.Estacionamento
             Console.WriteLine(" Veículos Estacionados");
             foreach (Veiculo v in estacionamento.Veiculos)
             {
-                // placa, proprietario, hora
+                // placa, propr, hora
                 Console.WriteLine("Placa :{0}", v.Placa);
                 Console.WriteLine("Proprietário :{0}", v.Proprietario);
                 Console.WriteLine("Hora de entrada :{0:HH:mm:ss}", v.HoraEntrada);
                 Console.WriteLine("********************************************");
-           }
+              
+            }
             if (estacionamento.Veiculos.Count == 0)
             {
                 Console.WriteLine("Não há veículos estacionados no momento...");
             }
-            PressionaTecla();
+            
         }
         
         static void RegistrarSaidaVeiculo()
@@ -52,7 +55,7 @@ namespace Alura.Estacionamento
             Console.Write("Placa: ");
             string placa = Console.ReadLine();          
             Console.WriteLine(estacionamento.RegistrarSaidaVeiculo(placa));
-            PressionaTecla();
+            
         }
 
         static void RegistrarEntradaVeiculo()
@@ -70,8 +73,7 @@ namespace Alura.Estacionamento
                     RegistrarEntradaMotocicleta();
                     break;
                 default:
-                    Console.WriteLine("Tipo Inválido");
-                    PressionaTecla();
+                    Console.WriteLine("Tipo Inválido");                    
                     break;
             }
         }
@@ -102,7 +104,8 @@ namespace Alura.Estacionamento
             moto.Acelerar(5);
             moto.Frear(5);
             estacionamento.RegistrarEntradaVeiculo(moto);
-            Console.WriteLine("Motocicleta registrada com sucesso!");            
+            Console.WriteLine("Motocicleta registrada com sucesso!");
+            Console.WriteLine("Pressione qualquer tecla para prosseguir.");
             Console.ReadKey();
         }
 
@@ -131,7 +134,8 @@ namespace Alura.Estacionamento
             carro.Acelerar(5);
             carro.Frear(5);
             estacionamento.RegistrarEntradaVeiculo(carro);
-            Console.WriteLine("Automóvel registrado com sucesso!");            
+            Console.WriteLine("Automóvel registrado com sucesso!");
+            PressionaTecla();
         }
 
         // Monta a interface da aplicação.
