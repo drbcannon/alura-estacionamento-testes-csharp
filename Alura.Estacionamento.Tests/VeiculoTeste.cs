@@ -91,7 +91,31 @@ namespace Alura.Estacionamento.Tests
             Assert.Contains("Tipo do Veículo: Automovel", dados);
         }
 
-    public void Dispose()
+        [Fact]
+        public void TestaNomeProprietarioVeiculoComMenosDeTresCaracteres()
+        {
+            string nomeProprietario = "Ab";
+
+            Assert.Throws<System.FormatException>(
+                () => new Veiculo(nomeProprietario)
+            );
+        }
+
+        [Theory]
+        [InlineData("ABC1234", "A placa deve possuir 8 caracteres")]
+        [InlineData("ABC12340", "O 4° caractere deve ser um hífen")]
+        [InlineData("A2C-2340", "Os 3 primeiros caracteres devem ser letras!")]
+        [InlineData("ABC-1C34", "Do 5º ao 8º caractere deve-se ter um número!")]
+        public void TestarExcecoesDePlaca(string placa, string mensagem)
+        {
+            var msgRetorno = Assert.Throws<System.FormatException>(
+                () => new Veiculo().Placa = placa
+            );
+
+            Assert.Equal(msgRetorno.Message, mensagem);
+        }
+
+        public void Dispose()
     {
         saidaConseloTeste.WriteLine("Dispose invocado.");
     }

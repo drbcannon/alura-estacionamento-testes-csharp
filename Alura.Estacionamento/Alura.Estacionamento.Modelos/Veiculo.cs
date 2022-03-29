@@ -25,7 +25,7 @@ namespace Alura.Estacionamento.Modelos
                 // Checa se o valor possui pelo menos 8 caracteres
                 if (value.Length != 8)
                 {
-                    throw new FormatException(" A placa deve possuir 8 caracteres");
+                    throw new FormatException("A placa deve possuir 8 caracteres");
                 }
                 for (int i = 0; i < 3; i++)
                 {
@@ -67,7 +67,18 @@ namespace Alura.Estacionamento.Modelos
         public string Modelo { get; set; }        
         public string Proprietario
         {
-            get; set;
+            get 
+            {
+                return _proprietario; 
+            }
+            set
+            { 
+                if(value.Length < 3)
+                {
+                    throw new System.FormatException("O Nome do proprietário não pode conter menos de 3 caractares!");
+                }
+                _proprietario = value;
+            }
         }
         public TipoVeiculo Tipo
         {
