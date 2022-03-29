@@ -1,28 +1,39 @@
-using Alura.Estacionamento.Modelos;
+using System;
 using Xunit;
+using Xunit.Abstractions;
+using Alura.Estacionamento.Modelos;
 
 namespace Alura.Estacionamento.Tests
 {
-    public class VeiculoTeste
+    public class VeiculoTeste: IDisposable
     {
-        [Fact(DisplayName ="Teste nº 1")]
+
+        private Veiculo veiculo;
+        public ITestOutputHelper saidaConseloTeste; 
+
+        public VeiculoTeste(ITestOutputHelper _saidaConseloTeste)
+        {
+            saidaConseloTeste = _saidaConseloTeste;
+            saidaConseloTeste.WriteLine("Construtor invocado.");
+            veiculo = new Veiculo();
+        }
+
+        [Fact]
         [Trait("Funcionalidade","Acelerar")]
-        public void TestaVeiculoAcelerar()
+        public void TestaVeiculoAcelerarComParametro10()
         {
             //Arrange
-            var veiculo = new Veiculo();
             //Act
             veiculo.Acelerar(10);
             //Assert
             Assert.Equal(100, veiculo.VelocidadeAtual);
         }
 
-        [Fact(DisplayName = "Teste nº 2")]
+        [Fact]
         [Trait("Funcionalidade", "Frear")]
-        public void TestaVeiculoFrear()
+        public void TestaVeiculoFrearComParametro10()
         {
             //Arrange
-            var veiculo = new Veiculo();
             //Act
             veiculo.Frear(10);
             //Assert
@@ -33,20 +44,16 @@ namespace Alura.Estacionamento.Tests
         public void TestaTipoVeiculoMotocicleta()
         {
             //Arrange
-            var veiculo = new Veiculo
-            {
-                //Act
-                Tipo = Alura.Estacionamento.Modelos.TipoVeiculo.Motocicleta
-            };
+            //Act
+            veiculo.Tipo = Alura.Estacionamento.Modelos.TipoVeiculo.Motocicleta;
             //Assert
             Assert.Equal(Alura.Estacionamento.Modelos.TipoVeiculo.Motocicleta, veiculo.Tipo);
         }
 
         [Fact]
-        public void TestaTipoVeiculoNulo()
+        public void TestaTipoVeiculoSemAtribuirTipo()
         {
             //Arrange
-            var veiculo = new Veiculo();
             //Act
             //Assert
             Assert.Equal(Alura.Estacionamento.Modelos.TipoVeiculo.Automovel, veiculo.Tipo);
@@ -56,11 +63,8 @@ namespace Alura.Estacionamento.Tests
         public void TestaTipoVeiculoAutomovel()
         {
             //Arrange
-            var veiculo = new Veiculo
-            {
-                //Act
-                Tipo = Alura.Estacionamento.Modelos.TipoVeiculo.Automovel
-            };
+            //Act
+            veiculo.Tipo = Alura.Estacionamento.Modelos.TipoVeiculo.Automovel;
             //Assert
             Assert.Equal(Alura.Estacionamento.Modelos.TipoVeiculo.Automovel, veiculo.Tipo);
         }
@@ -72,22 +76,24 @@ namespace Alura.Estacionamento.Tests
         }
 
         [Fact]
-        public void DadosVeiculo()
+        public void ValidarDadosDoVeiculo()
         {
             //Arrange
-            var carro = new Veiculo
-            {
-                Proprietario = "Dennie Cannon",
-                Cor = "Verde",
-                Modelo = "Fusca",
-                Placa = "asd-9999",
-            };
+            veiculo.Proprietario = "Dennie Cannon";
+            veiculo.Cor = "Verde";
+            veiculo.Modelo = "Fusca";
+            veiculo.Placa = "asd-9999";
 
             //Act
-            string dados = carro.ToString();
+            string dados = veiculo.ToString();
 
             //Assert
             Assert.Contains("Tipo do Veículo: Automovel", dados);
         }
+
+    public void Dispose()
+    {
+        saidaConseloTeste.WriteLine("Dispose invocado.");
     }
+}
 }

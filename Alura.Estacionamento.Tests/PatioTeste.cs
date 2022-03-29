@@ -1,24 +1,33 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
+using Xunit.Abstractions;
 using Alura.Estacionamento.Modelos;
 using Alura.Estacionamento.Alura.Estacionamento.Modelos;
 
 namespace Alura.Estacionamento.Tests
 {
-    public class PatioTeste
+    public class PatioTeste: IDisposable
     {
+        private Veiculo veiculo;
+        public ITestOutputHelper saidaConseloTeste;
+
+        public PatioTeste(ITestOutputHelper _saidaConseloTeste)
+        {
+            saidaConseloTeste = _saidaConseloTeste;
+            saidaConseloTeste.WriteLine("Construtor invocado.");
+            veiculo = new Veiculo();
+        }
+
         [Fact]
         public void ValidaFaturamento()
         {
             //Arrange
             var estacionamento = new Patio();
-            var veiculo = new Veiculo
-            {
-                Proprietario = "Dennie Cannon",
-                Tipo = TipoVeiculo.Automovel,
-                Cor = "Verde",
-                Modelo = "Fusca",
-                Placa = "asd-9999",
-            };
+            veiculo.Proprietario = "Dennie Cannon";
+            veiculo.Tipo = TipoVeiculo.Automovel;
+            veiculo.Cor = "Verde";
+            veiculo.Modelo = "Fusca";
+            veiculo.Placa = "asd-9999";
 
             estacionamento.RegistrarEntradaVeiculo(veiculo);
             estacionamento.RegistrarSaidaVeiculo(veiculo.Placa);
@@ -42,13 +51,10 @@ namespace Alura.Estacionamento.Tests
         {
             //Arrange
             var estacionamento = new Patio();
-            var veiculo = new Veiculo
-            {
-                Proprietario = proprietario,
-                Cor = cor,
-                Modelo = modelo,
-                Placa = placa,
-            };
+            veiculo.Proprietario = proprietario;
+            veiculo.Cor = cor;
+            veiculo.Modelo = modelo;
+            veiculo.Placa = placa;
 
             estacionamento.RegistrarEntradaVeiculo(veiculo);
             estacionamento.RegistrarSaidaVeiculo(veiculo.Placa);
@@ -69,13 +75,10 @@ namespace Alura.Estacionamento.Tests
         {
             //Arrange
             var estacionamento = new Patio();
-            var veiculo = new Veiculo
-            {
-                Proprietario = proprietario,
-                Cor = cor,
-                Modelo = modelo,
-                Placa = placa,
-            };
+            veiculo.Proprietario = proprietario;
+            veiculo.Cor = cor;
+            veiculo.Modelo = modelo;
+            veiculo.Placa = placa;
 
             estacionamento.RegistrarEntradaVeiculo(veiculo);
 
@@ -87,17 +90,14 @@ namespace Alura.Estacionamento.Tests
         }
 
         [Fact]
-        public void AlterarDadosVeiculo()
+        public void AlterarModeloVeiculo()
         {
             //Arrange
             var estacionamento = new Patio();
-            var veiculo = new Veiculo
-            {
-                Proprietario = "Dennie Cannon",
-                Cor = "Verde",
-                Modelo = "Fusca",
-                Placa = "asd-9999",
-            };
+            veiculo.Proprietario = "Dennie Cannon";
+            veiculo.Cor = "Verde";
+            veiculo.Modelo = "Fusca";
+            veiculo.Placa = "asd-9999";
             estacionamento.RegistrarEntradaVeiculo(veiculo);
 
             var veiculoAlterado = new Veiculo
@@ -113,6 +113,11 @@ namespace Alura.Estacionamento.Tests
 
             //Assert
             Assert.Equal(alterado.Modelo, veiculoAlterado.Modelo);
+        }
+
+        public void Dispose()
+        {
+            saidaConseloTeste.WriteLine("Dispose invocado.");
         }
     }
 }
