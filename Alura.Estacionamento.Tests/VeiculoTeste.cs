@@ -5,7 +5,8 @@ namespace Alura.Estacionamento.Tests
 {
     public class VeiculoTeste
     {
-        [Fact]
+        [Fact(DisplayName ="Teste nº 1")]
+        [Trait("Funcionalidade","Acelerar")]
         public void TestaVeiculoAcelerar()
         {
             //Arrange
@@ -16,7 +17,8 @@ namespace Alura.Estacionamento.Tests
             Assert.Equal(100, veiculo.VelocidadeAtual);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Teste nº 2")]
+        [Trait("Funcionalidade", "Frear")]
         public void TestaVeiculoFrear()
         {
             //Arrange
@@ -61,6 +63,12 @@ namespace Alura.Estacionamento.Tests
             };
             //Assert
             Assert.Equal(Alura.Estacionamento.Modelos.TipoVeiculo.Automovel, veiculo.Tipo);
+        }
+        
+        [Fact(Skip ="Ainda não implementado", DisplayName ="Teste ignorado")]
+        public void ValidaNomeProprietario()
+        {
+            
         }
     }
 }
