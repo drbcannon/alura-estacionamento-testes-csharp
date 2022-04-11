@@ -1,0 +1,6 @@
+Na pasta do projeto de testes:
+* dotnet tool install -g coverlet.console
+- dotnet build
+- coverlet "D:\Projects\Alura\alura-estacionamento-testes-csharp\Alura.Estacionamento.Tests\bin\Debug\net5.0\Alura.Estacionamento.Tests.dll" --target "dotnet" --targetargs "test --no-build"
+* dotnet tool install -g dotnet-reportgenerator-globaltool
+- reportgenerator -reports:"D:\Projects\Alura\alura-estacionamento-testes-csharp\Alura.Estacionamento.Tests\TestResults\726e0083-7e45-4c6d-a0e4-a54985d58425\coverage.cobertura.xml" -targetdir:"coverageresults" -reporttypes:Html
